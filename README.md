@@ -11,4 +11,5 @@
 	> Pagespeed
 		- [versions](https://www.modpagespeed.com/doc/release_notes)
 		- [to build](https://www.modpagespeed.com/doc/build_ngx_pagespeed_from_source)
+		- [configuration](https://www.modpagespeed.com/doc/configuration)
 
