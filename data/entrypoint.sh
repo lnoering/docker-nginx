@@ -9,6 +9,6 @@ echo "Starting the nginx"
 if [ -z "$1" ]
 then
     /bin/bash
-else
-	exec "$@"
 fi
+
+exec "$@"
