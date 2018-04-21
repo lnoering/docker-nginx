@@ -1,4 +1,4 @@
-## Dokcer to build Nginx with modules.
+## Docker to build Nginx with modules.
 
 >Version 0.1 [BETA]
 
