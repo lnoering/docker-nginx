@@ -4,12 +4,12 @@
 
 
 #### Nginx
-	- [versions](http://nginx.org/en/download.html)
+-[versions](http://nginx.org/en/download.html)
 
 
 #### Modules
-	> Pagespeed
-		- [versions](https://www.modpagespeed.com/doc/release_notes)
-		- [to build](https://www.modpagespeed.com/doc/build_ngx_pagespeed_from_source)
-		- [configuration](https://www.modpagespeed.com/doc/configuration)
+> Pagespeed
+	- [versions](https://www.modpagespeed.com/doc/release_notes)
+	- [to build](https://www.modpagespeed.com/doc/build_ngx_pagespeed_from_source)
+	- [configuration](https://www.modpagespeed.com/doc/configuration)
 
