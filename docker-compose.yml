@@ -1,0 +1,20 @@
+version: '3'
+services:
+  web:
+    container_name: nginx
+    image: lnoering/nginx:latest
+    environment:
+      #- NGINX_VERSION=1.14.0
+      #- NGINX_USER=nginx
+      #- NGINX_SITECONF_DIR=/etc/nginx/sites-enabled
+      #- NGINX_LOG_DIR=/var/log/nginx
+      #- NGINX_TEMP_DIR=/var/lib/nginx
+      #- NGINX_SETUP_DIR=/var/cache/nginx
+      #- NGINX_MODULES=/etc/nginx/modules
+      #- NPS_VERSION=1.13.35.2-stable
+    volumes:
+      - ./projeto:/var/www
+    working_dir: /var/www
+    restart: on-failure
+    ports:
+      - 80:80
