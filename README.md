@@ -8,18 +8,18 @@
 </p>
 
 ## Docker to build Nginx with modules. ##
-> Image - lnoering/nginx:latest
+  > Image - __lnoering/nginx:latest__
 
-____Version 1.0 [BETA]_____
+__Version 1.0 [BETA]__
 
 
 #### Nginx ####
-  	- [versions](http://nginx.org/en/download.html)
+  - [versions](http://nginx.org/en/download.html)
 
 
 #### Modules ####
-	> Pagespeed
-   - [versions](https://www.modpagespeed.com/doc/release_notes)
-   - [to build](https://www.modpagespeed.com/doc/build_ngx_pagespeed_from_source)
-   - [configuration](https://www.modpagespeed.com/doc/configuration)
+  > Pagespeed
+    - [versions](https://www.modpagespeed.com/doc/release_notes)
+    - [to build](https://www.modpagespeed.com/doc/build_ngx_pagespeed_from_source)
+    - [configuration](https://www.modpagespeed.com/doc/configuration)
 
