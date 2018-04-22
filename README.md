@@ -7,6 +7,9 @@
 	<a href="https://travis-ci.org/lnoering/docker-nginx">
 		<img src="https://travis-ci.org/lnoering/docker-nginx.svg?branch=master" alt="Build Status">
 	</a>
+	<a href='https://coveralls.io/github/lnoering/docker-nginx?branch=master'>
+		<img src='https://coveralls.io/repos/github/lnoering/docker-nginx/badge.svg?branch=master' alt='Coverage Status' />
+	</a>
 </p>
 
 __Version 1.0 [BETA]__
