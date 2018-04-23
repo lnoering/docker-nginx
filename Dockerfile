@@ -10,7 +10,9 @@ ENV NGINX_VERSION=1.14.0 \
     NGINX_TEMP_DIR=/var/lib/nginx \
     NGINX_SETUP_DIR=/var/cache/nginx \
     NGINX_MODULES=/etc/nginx/modules \
-    NPS_VERSION=1.13.35.2-stable
+    NPS_VERSION=1.13.35.2-stable \
+    NAME_PHP_CONTAINER=php \
+    MODULE_ECHO_VERSION=0.61
 
 RUN yum update --exclude=iputils \
                -y
@@ -57,6 +59,13 @@ RUN [ -e scripts/format_binary_url.sh ] && wget $(scripts/format_binary_url.sh P
 RUN tar -xzf $(basename $(scripts/format_binary_url.sh PSOL_BINARY_URL))  
 RUN rm -rf $(basename $(scripts/format_binary_url.sh PSOL_BINARY_URL))  
 
+WORKDIR ${NGINX_MODULES}
+
+RUN wget https://github.com/openresty/echo-nginx-module/archive/v${MODULE_ECHO_VERSION}.tar.gz
+RUN tar xzf v${MODULE_ECHO_VERSION}.tar.gz
+
+RUN rm -rf v${MODULE_ECHO_VERSION}.tar.gz
+
 WORKDIR ${NGINX_SETUP_DIR}/nginx-${NGINX_VERSION}
 
 RUN ./configure \
@@ -75,6 +84,7 @@ RUN ./configure \
 --user=nginx \
 --group=nginx \
 --add-module=${NGINX_MODULES}/incubator-pagespeed-ngx-${NPS_VERSION} \
+--add-module=${NGINX_MODULES}/echo-nginx-module-${MODULE_ECHO_VERSION} \
 --with-http_ssl_module \
 --with-http_realip_module \
 --with-http_addition_module \
@@ -100,19 +110,34 @@ RUN make install
 
 RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 
+RUN mkdir -p /etc/nginx/conf.d
+RUN mkdir -p /etc/nginx/default.d
+RUN mkdir -p /var/www
+
 COPY data/nginx.conf /etc/nginx/nginx.conf
 COPY data/nginx /etc/init.d/nginx
 COPY data/entrypoint.sh /entrypoint.sh
+COPY data/vhost/default.conf /etc/nginx/conf.d/
+COPY data/default/* /etc/nginx/default.d/
 
-RUN chmod +x /entrypoint.sh
-RUN chmod +x /etc/init.d/nginx
-RUN PROC=$( grep "model name" /proc/cpuinfo | wc -l)
-RUN sed -i -e 's/worker_processes  4;/worker_processes  '"$PROC"';/g' /etc/nginx/nginx.conf
+RUN mv /etc/nginx/html/* /var/www/
+RUN rm -rf /etc/nginx/html
 
 RUN adduser nginx -d /dev/null -s /bin/false
 RUN chkconfig --add nginx
 RUN chkconfig --level 345 nginx on
 RUN chkconfig nginx on
+
+WORKDIR /var/
+
+RUN chown -R nginx:nginx www 
+
+RUN chmod +x /entrypoint.sh
+RUN chmod +x /etc/init.d/nginx
+RUN PROC=$( grep "model name" /proc/cpuinfo | wc -l)
+RUN sed -i -e 's/worker_processes  4;/worker_processes  '"$PROC"';/g' /etc/nginx/nginx.conf
+RUN sed -i -e 's/127.0.0.1/'"$NAME_PHP_CONTAINER"'/g' /etc/nginx/default.d/php.conf
+
 
 EXPOSE 80 443
 

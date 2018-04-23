@@ -12,6 +12,8 @@ services:
       #- NGINX_SETUP_DIR=/var/cache/nginx
       #- NGINX_MODULES=/etc/nginx/modules
       #- NPS_VERSION=1.13.35.2-stable
+      #- NAME_PHP_CONTAINER=php
+      #- MODULE_ECHO_VERSION=0.61
     volumes:
       - ./projeto:/var/www
     working_dir: /var/www
